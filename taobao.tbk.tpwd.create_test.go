@@ -1,12 +1,17 @@
-golang版的淘宝客(tbk)SDK
+package top_test
 
+import (
+	"fmt"
+	"testing"
 
+	"github.com/liuhengloveyou/go-top"
+)
 
-## API示例
+const (
+	AppKey    = "xxxxxx"
+	AppSecret = "xxxxxx"
+)
 
-###  [taobao.tbk.tpwd.create( 淘宝客-公用-淘口令生成 )](https://open.taobao.com/api.htm?docId=31127&docType=2)
-
-```go
 func TestTaobaoTbkTpwdCreate(t *testing.T) {
 	var topClient *top.Client = top.NewClient(AppKey, AppSecret)
 
@@ -18,4 +23,3 @@ func TestTaobaoTbkTpwdCreate(t *testing.T) {
 
 	fmt.Println(">>>>>>", string(d), err)
 }
-```
