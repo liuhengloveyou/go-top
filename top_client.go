@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"sort"
 	"strings"
 	"time"
@@ -74,7 +75,7 @@ func (t *Client) Run(api TopApi) ([]byte, error) {
 	return respByte, err
 }
 
-func sign(param map[string]interface{}, appSecret string) (str string) {
+func sign(param map[string]interface{}, appSecret string) string {
 	keys := []string{}
 	for key, _ := range param {
 		keys = append(keys, key)
@@ -94,14 +95,14 @@ func sign(param map[string]interface{}, appSecret string) (str string) {
 	return strings.ToUpper(hex.EncodeToString(s.Sum(nil)))
 }
 
-func request(url string, param map[string]interface{}) ([]byte, error) {
+func request(urlStr string, param map[string]interface{}) ([]byte, error) {
 	var bodyBuff bytes.Buffer
 
 	for k, v := range param {
-		bodyBuff.WriteString(fmt.Sprintf("%s=%v&", k, v))
+		bodyBuff.WriteString(fmt.Sprintf("%s=%v&", k, url.QueryEscape(fmt.Sprintf("%v", v))))
 	}
 
-	resp, err := http.Post(url, "application/x-www-form-urlencoded; charset=utf-8", bytes.NewReader(bodyBuff.Bytes()))
+	resp, err := http.Post(urlStr, "application/x-www-form-urlencoded; charset=utf-8", bytes.NewReader(bodyBuff.Bytes()))
 	if err != nil {
 		return []byte{}, err
 	}

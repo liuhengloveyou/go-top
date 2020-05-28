@@ -7,11 +7,11 @@ type TaobaoTbkDgMaterialOptional struct {
 func NewTaobaoTbkDgMaterialOptional() *TaobaoTbkDgMaterialOptional {
 	return &TaobaoTbkDgMaterialOptional{
 		param: map[string]interface{}{
-			"fields":                "user_id,shop_title,shop_type,seller_nick,pict_url,shop_url", //需返回的字段列表
-			"sort":                  "commission_rate_des",                                        //排序_des（降序），排序_asc（升序），佣金比率（commission_rate）， 商品数量（auction_count），销售总数量（total_auction）
-			"start_credit":          1,                                                            //信用等级下限，1~20
-			"end_credit":            20,                                                           //信用等级上限，1~20
-			"start_commission_rate": 1,                                                            //淘客佣金比率下限，1~10000
+			"platform":      2,                                                            // 链接形式：1：PC，2：无线，默认：１
+			"sort":          "tk_total_commi",                                             //排序_des（降序），排序_asc（升序），销量（total_sales），淘客佣金比率（tk_rate）， 累计推广量（tk_total_sales），总支出佣金（tk_total_commi），价格（price）
+			"has_coupon":    true,                                                         // 优惠券筛选-是否有优惠券。true表示该商品有优惠券，false或不设置表示不限
+			"fields":        "user_id,shop_title,shop_type,seller_nick,pict_url,shop_url", //需返回的字段列表
+			"start_tk_rate": 1,                                                            //淘客佣金比率下限，1~10000
 		}}
 
 }
